@@ -23,6 +23,7 @@ It would generate the following JSON example and JSON Schema:
 
 ```json
 {
+  "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "required": ["name", "age"],
   "properties": {
