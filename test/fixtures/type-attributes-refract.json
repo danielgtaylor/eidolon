@@ -1,0 +1,48 @@
+{
+  "element": "object",
+  "meta": {
+    "description": "I am an object"
+  },
+  "attributes": {
+    "typeAttributes": ["nullable"]
+  },
+  "content": [
+    {
+      "element": "member",
+      "meta": {
+        "description": "I am a description"
+      },
+      "attributes": {
+        "typeAttributes": ["required"]
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "foo"
+        },
+        "value": {
+          "element": "number",
+          "content": 5
+        }
+      }
+    },
+    {
+      "element": "member",
+      "attributes": {
+        "typeAttributes": ["nullable"]
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "bar"
+        },
+        "value": {
+          "element": "boolean",
+          "attributes": {
+            "default": false
+          }
+        }
+      }
+    }
+  ]
+}

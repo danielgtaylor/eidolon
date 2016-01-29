@@ -1,0 +1,23 @@
+{
+  "type": [
+    "object",
+    "null"
+  ],
+  "description": "I am an object",
+  "required": [
+    "foo"
+  ],
+  "properties": {
+    "bar": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "default": false
+    },
+    "foo": {
+      "type": "number",
+      "description": "I am a description"
+    }
+  }
+}
