@@ -1,0 +1,64 @@
+{
+  "User": {
+    "element": "object",
+    "meta": {
+      "id": "User"
+    },
+    "content": [
+      {
+        "element": "member",
+        "content": {
+          "key": {
+            "element": "string",
+            "content": "name"
+          },
+          "value": {
+            "element": "string",
+            "content": "Daniel"
+          }
+        }
+      },
+      {
+        "element": "member",
+        "content": {
+          "key": {
+            "element": "string",
+            "content": "foo"
+          },
+          "value": {
+            "element": "string",
+            "content": "bar"
+          }
+        }
+      }
+    ]
+  },
+  "PaymentInfo": {
+    "element": "object",
+    "meta": {
+      "id": "PaymentInfo"
+    },
+    "content": [
+      {
+        "element": "member",
+        "content": {
+          "key": {
+            "element": "string",
+            "content": "isPaying"
+          },
+          "value": {
+            "element": "boolean",
+            "content": false
+          }
+        }
+      }
+    ]
+  },
+  "SuperString": {
+    "element": "string",
+    "meta": {
+      "id": "SuperString"
+    },
+    "content": "I am a super string"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "element": "array",
+  "content": [
+    {
+      "element": "string",
+      "content": "I am a string"
+    },
+    {
+      "element": "number",
+      "content": 1234
+    }
+  ]
+}

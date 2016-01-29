@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "defaultString": {
+      "type": "string"
+    },
+    "defaultNumber": {
+      "type": "number"
+    },
+    "defaultBoolean": {
+      "type": "boolean"
+    }
+  }
+}

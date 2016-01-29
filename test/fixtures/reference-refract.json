@@ -1,0 +1,56 @@
+{
+  "element": "User",
+  "meta": {
+    "id": "Customer"
+  },
+  "attributes": {
+    "typeAttributes": ["required"]
+  },
+  "content": [
+    {
+      "element": "member",
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "id"
+        },
+        "value": {
+          "element": "number",
+          "content": 1234
+        }
+      }
+    },
+    {
+      "element": "ref",
+      "content": {
+        "href": "PaymentInfo"
+      }
+    },
+    {
+      "element": "member",
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "foo"
+        },
+        "value": {
+          "element": "number",
+          "content": 23
+        }
+      }
+    },
+    {
+      "element": "member",
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "super"
+        },
+        "value": {
+          "element": "SuperString",
+          "content": "Another super string"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "id": 1234,
+  "name": "Daniel",
+  "isPaying": false,
+  "foo": 23,
+  "super": "Another super string"
+}

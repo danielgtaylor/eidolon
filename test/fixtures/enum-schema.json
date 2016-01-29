@@ -1,0 +1,8 @@
+{
+  "type": "object",
+  "properties": {
+    "tag": {
+      "enum": ["red", "green"]
+    }
+  }
+}

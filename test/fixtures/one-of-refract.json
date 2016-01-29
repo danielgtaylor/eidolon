@@ -1,0 +1,38 @@
+{
+  "element": "object",
+  "content": [
+    {
+      "element": "select",
+      "content": [
+        {
+          "element": "option",
+          "content": [
+            {
+              "element": "member",
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "state"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "element": "option",
+          "content": [
+            {
+              "element": "member",
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "province"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

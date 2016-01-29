@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "province": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    }
+  },
+  "allOf": [
+    {
+      "not": {
+        "required": [
+          "state",
+          "province"
+        ]
+      }
+    }
+  ]
+}
