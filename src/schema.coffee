@@ -13,8 +13,11 @@
 {deepEqual} = require 'assert'
 inherit = require './inherit'
 
-module.exports = renderSchema = (root, dataStructures) ->
+module.exports = generateSchema = (root, dataStructures, top = true) ->
   schema = {}
+
+  if top then schema['$schema'] = 'http://json-schema.org/draft-04/schema#'
+
   switch root.element
     when 'boolean', 'string', 'number'
       schema.type = root.element
@@ -28,7 +31,7 @@ module.exports = renderSchema = (root, dataStructures) ->
       schema.type = 'array'
       items = []
       for item in root.content or []
-        items.push renderSchema(item, dataStructures)
+        items.push generateSchema(item, dataStructures, false)
       if items.length is 1
         schema.items = items[0]
       else if items.length > 1
@@ -53,7 +56,7 @@ module.exports = renderSchema = (root, dataStructures) ->
         else if member.element == 'select'
           exclusive = []
           for option in member.content
-            optionSchema = renderSchema(option, dataStructures)
+            optionSchema = generateSchema option, dataStructures, false
             for key, prop of optionSchema.properties
               exclusive.push key
               schema.properties[key] = prop
@@ -62,7 +65,7 @@ module.exports = renderSchema = (root, dataStructures) ->
           continue
         key = member.content.key.content
         schema.properties[key] = if member.content.value
-          renderSchema(member.content.value, dataStructures)
+          generateSchema member.content.value, dataStructures, false
         else
           {type: 'string'}
         if member.meta?.description?
@@ -78,7 +81,7 @@ module.exports = renderSchema = (root, dataStructures) ->
     else
       ref = dataStructures[root.element]
       if ref
-        schema = renderSchema(inherit(ref, root), dataStructures)
+        schema = generateSchema inherit(ref, root), dataStructures, top
 
   if root.meta?.description?
     schema.description = root.meta.description
@@ -87,4 +90,5 @@ module.exports = renderSchema = (root, dataStructures) ->
     typeAttr = root.attributes.typeAttributes
     if typeAttr.indexOf('nullable') isnt -1
       schema.type = [schema.type, 'null']
+
   schema

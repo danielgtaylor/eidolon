@@ -1,12 +1,13 @@
 generateExample = require './example'
 generateSchema = require './schema'
+inherit = require './inherit'
 
 # This class is initialized with and saves the data structures that can be
 # referenced and used when generating examples and schemas. It is an alternative
 # to the module-level shortcuts exported below that each require a list of
 # data structures to be passed with each invocation.
 class Eidolon
-  constructor: (@structures) ->
+  constructor: (@structures = {}) ->
 
   example: (element) ->
     generateExample element, @structures
@@ -17,4 +18,5 @@ class Eidolon
 module.exports =
   Eidolon: Eidolon
   example: generateExample
+  inherit: inherit
   schema: generateSchema

@@ -52,19 +52,36 @@ There are two ways to use the module: either via module-level methods or by inst
 import eidolon, {Eidolon} from 'eidolon';
 
 const input = {"element": "string", "content": "Hello"};
-const dataStructures = [];
+const dataStructures = {};
+
+let example, schema;
 
 // Method 1: module methods
-example1 = eidolon.example(input, dataStructures);
-schema1 = eidolon.schema(input, dataStructures);
+example = eidolon.example(input, dataStructures);
+schema = eidolon.schema(input, dataStructures);
 
 // Method 2: class instance
-instance = new Eidolon(dataStructures);
-example2 = instance.example(input);
-schema2 = instance.schema(input);
+const instance = new Eidolon(dataStructures);
+example = instance.example(input);
+schema = instance.schema(input);
 ```
 
 Choose whichever method better suits your use case.
+
+#### Example & Schema Serialization
+
+Examples and JSON Schema are created as plain Javascript objects. As such, they can be serialized into various formats, such as JSON, YAML, and other more esoteric formats. In the case of JSON Schema, it probably makes the most sense to stick with JSON.
+
+```js
+example = instance.example(input);
+
+// Print as JSON
+console.log(JSON.stringify(example, null, 2));
+
+// Print as YAML (after `npm install js-yaml`)
+import yaml from 'js-yaml';
+console.log(yaml.safeDump(example));
+```
 
 ## Features
 
@@ -97,6 +114,86 @@ The following list of features in no particular order are known to be missing or
 * Variable values
 * Variable property names
 * Variable type names
+* Extend element support
+* Remote referenced elements (e.g. via HTTP)
+* Namespace prefixes
+
+## Reference
+
+### `eidolon.Eidolon([dataStructures])`
+
+This class is used to save state between calls to `example` and `schema`. It is used just like the functions below, except that you pass your data structures to the constructor instead of to each method.
+
+```js
+import {Eidolon} from 'eidolon';
+
+const instance = new Eidolon();
+const input = {element: 'string', content: 'hello'};
+
+let example = instance.example(input);
+let schema = instance.schema(input);
+```
+
+### `eidolon.example(input, [dataStructures])`
+
+Generate a new example from the given input refract object and an optional mapping of data structures, where the key is the data structure name and the value is the data structure definition.
+
+```js
+import eidolon from 'eidolon';
+
+const input = {element: 'string', content: 'hello'};
+let example = eidolon.example(input);
+```
+
+### `eidolon.schema(input, [dataStructures])`
+
+Generate a new JSON schema from the given input refract object and an optional mapping of data structures, where the key is the data structure name and the value is the data structure definition.
+
+```js
+import eidolon from 'eidolon';
+
+const input = {element: 'string', content: 'hello'};
+let schema = eidolon.schema(input);
+```
+
+### `eidolon.inherit(base, element)`
+
+Generate a new element with merged properties from both `base` and `element`, taking care to prevent duplicate members. This utility can be used when traversing the element tree.
+
+```js
+import eidolon from 'eidolon';
+
+const base = {
+  element: 'number',
+  meta: {
+    id: 'NullableNumber',
+    default: 0
+  },
+  attributes: {
+    typeAttributes: ['nullable']
+  }
+};
+
+const element = {
+  element: 'NullableNumber',
+  attributes: {
+    default: 2
+  },
+  content: 10
+}
+
+let merged = eidolon.inherit(base, element);
+
+// Merged now looks like:
+{
+  element: 'number',
+  attributes: {
+    default: 2,
+    typeAttributes: ['nullable']
+  },
+  content: 10
+}
+```
 
 ## License
 
