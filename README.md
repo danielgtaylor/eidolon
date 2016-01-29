@@ -1,4 +1,7 @@
 # Eidolon
+
+[![Build Status](http://img.shields.io/travis/danielgtaylor/eidolon/master.svg)](https://travis-ci.org/danielgtaylor/eidolon) [![Coverage Status](http://img.shields.io/coveralls/danielgtaylor/eidolon/master.svg)](https://coveralls.io/r/danielgtaylor/eidolon) [![NPM version](http://img.shields.io/npm/v/eidolon.svg)](https://www.npmjs.org/package/eidolon) [![License](http://img.shields.io/npm/l/eidolon.svg)](https://www.npmjs.org/package/eidolon)
+
 Generate examples and [JSON Schema](http://json-schema.org/) from [Refract](https://github.com/refractproject/refract-spec#refract) data structures. Data structures can come from [MSON](https://github.com/apiaryio/mson#markdown-syntax-for-object-notation) or other input sources.
 
 Given the following MSON attributes from e.g. [API Blueprint](https://apiblueprint.org/):
