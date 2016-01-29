@@ -20,7 +20,11 @@ defaultValue = (type) ->
 module.exports = renderExample = (root, dataStructures) ->
   switch root.element
     when 'boolean', 'string', 'number'
-      if root.content? then root.content else defaultValue(root.element)
+      if root.content? then root.content else
+        if root.attributes?.default isnt undefined
+          root.attributes.default
+        else
+          defaultValue(root.element)
     when 'enum' then renderExample root.content[0], dataStructures
     when 'array'
       for item in root.content or []
