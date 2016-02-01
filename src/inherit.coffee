@@ -49,6 +49,8 @@ module.exports = (base, element) ->
         # This is probably an object - remove duplicate keys!
         uniqueMembers combined.content
     else
-      # Not an array or object, just overwrite the content
-      combined.content = element.content
+      # Not an array or object, just overwrite the content if it exists.
+      if element.content?
+        combined.content = element.content
+
   combined

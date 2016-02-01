@@ -9,7 +9,7 @@
 # * One Of properties (the first is always selected)
 #
 # It is missing support for many advanced features.
-inherit = require './inherit'
+dereference = require './dereference'
 
 defaultValue = (type) ->
   switch type
@@ -17,7 +17,7 @@ defaultValue = (type) ->
     when 'number' then 1
     when 'string' then 'Hello, world!'
 
-module.exports = generateExample = (root, dataStructures) ->
+generateExample = (root) ->
   switch root.element
     when 'boolean', 'string', 'number'
       # Use either the content, default, or make up a default value
@@ -28,32 +28,22 @@ module.exports = generateExample = (root, dataStructures) ->
           defaultValue(root.element)
     when 'enum'
       # Note: we *always* select the first choice!
-      generateExample root.content[0], dataStructures
+      generateExample root.content[0]
     when 'array'
       for item in root.content or []
-        generateExample item, dataStructures
+        generateExample item
     when 'object'
       obj = {}
-      properties = root.content.slice(0)
-      i = 0
-      while i < properties.length
-        member = properties[i]
-        i++
-        if member.element == 'ref'
-          ref = dataStructures[member.content.href]
-          i--
-          properties.splice.apply properties, [i, 1].concat(ref.content)
-          continue
-        else if member.element == 'select'
+      for member in root.content
+        if member.element == 'select'
           # Note: we *always* select the first choice!
           member = member.content[0].content[0]
         key = member.content.key.content
         obj[key] = if member.content.value
-          generateExample member.content.value, dataStructures
+          generateExample member.content.value
         else
           defaultValue 'string'
       obj
-    else
-      ref = dataStructures[root.element]
-      if ref
-        generateExample inherit(ref, root), dataStructures
+
+module.exports = (root, dataStructures) ->
+  generateExample dereference(root, dataStructures)

@@ -133,6 +133,7 @@ const input = {element: 'string', content: 'hello'};
 
 let example = instance.example(input);
 let schema = instance.schema(input);
+let dereferenced = instance.dereference(input);
 ```
 
 ### `eidolon.example(input, [dataStructures])`
@@ -155,6 +156,32 @@ import eidolon from 'eidolon';
 
 const input = {element: 'string', content: 'hello'};
 let schema = eidolon.schema(input);
+```
+
+### `eidolon.dereference(input, [dataStructures])`
+
+Dereference an input element or structure of elements with the given data structures. This will return the same element or structure with resolved references so you do not have to handle inheritance or object includes.
+
+```js
+import eidolon from 'eidolon';
+
+const input = {
+  element: 'MyString'
+};
+const dataStructures = {
+  MyElement: {
+    element: 'string',
+    meta: {
+      id: 'MyString'
+    },
+    content: 'Hello, world!'
+  }
+};
+
+let dereferenced = eidolon.dereference(input, dataStructures);
+
+console.log(dereferenced.element); // => 'string'
+console.log(dereferenced.content); // => 'Hello, world!'
 ```
 
 ### `eidolon.inherit(base, element)`

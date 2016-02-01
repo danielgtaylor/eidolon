@@ -51,6 +51,18 @@
           "content": "Another super string"
         }
       }
+    },
+    {
+      "element": "member",
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "no-content"
+        },
+        "value": {
+          "element": "SuperString"
+        }
+      }
     }
   ]
 }

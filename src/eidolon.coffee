@@ -1,3 +1,4 @@
+dereference = require './dereference'
 generateExample = require './example'
 generateSchema = require './schema'
 inherit = require './inherit'
@@ -9,6 +10,9 @@ inherit = require './inherit'
 class Eidolon
   constructor: (@structures = {}) ->
 
+  dereference: (element) ->
+    dereference element, @structures
+
   example: (element) ->
     generateExample element, @structures
 
@@ -17,6 +21,7 @@ class Eidolon
 
 module.exports =
   Eidolon: Eidolon
+  dereference: dereference
   example: generateExample
   inherit: inherit
   schema: generateSchema

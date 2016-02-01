@@ -16,6 +16,9 @@
     },
     "super": {
       "type": "string"
+    },
+    "no-content": {
+      "type": "string"
     }
   }
 }

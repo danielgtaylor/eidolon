@@ -36,5 +36,86 @@ glob.sync('./fixtures/*-refract.json').forEach (filename) ->
       schema = eidolon.schema input
       assert.deepEqual schema, expected
 
+describe 'Dereferencing', ->
+  refract =
+    element: 'object'
+    content: [
+        element: 'member'
+        content:
+          key:
+            element: 'string'
+            content: 'foo'
+          value:
+            element: 'FooType'
+            content: null
+      ,
+        element: 'ref'
+        content:
+          href: 'BarType'
+      ,
+        element: 'member'
+        content:
+          key:
+            element: 'string'
+            content: 'baz'
+          value:
+            element: 'boolean'
+            content: true
+    ]
+
+  dataStructures =
+    FooType:
+      element: 'number'
+      content: 5
+    BarType:
+      element: 'object'
+      content: [
+        element: 'member'
+        content:
+          key:
+            element: 'string'
+            content: 'bar'
+          value:
+            element: 'string'
+            content: 'Hello'
+      ]
+
+  expected =
+    element: 'object'
+    content: [
+        element: 'member'
+        content:
+          key:
+            element: 'string'
+            content: 'foo'
+          value:
+            element: 'number'
+            content: 5
+      ,
+        element: 'member'
+        content:
+          key:
+            element: 'string'
+            content: 'bar'
+          value:
+            element: 'string'
+            content: 'Hello'
+      ,
+        element: 'member'
+        content:
+          key:
+            element: 'string'
+            content: 'baz'
+          value:
+            element: 'boolean'
+            content: true
+    ]
+
+  eidolon = new Eidolon dataStructures
+  dereferenced = eidolon.dereference refract
+
+  it 'Dereferences element name', ->
+    assert.deepEqual expected, dereferenced
+
 # Reset for other tooling like coverage!
 process.chdir '..'

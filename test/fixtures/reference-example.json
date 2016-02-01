@@ -3,5 +3,6 @@
   "name": "Daniel",
   "isPaying": false,
   "foo": 23,
-  "super": "Another super string"
+  "super": "Another super string",
+  "no-content": "I am a super string"
 }

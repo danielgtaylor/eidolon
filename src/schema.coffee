@@ -11,9 +11,9 @@
 #
 # It is missing support for many advanced features.
 {deepEqual} = require 'assert'
-inherit = require './inherit'
+dereference = require './dereference'
 
-module.exports = generateSchema = (root, dataStructures, top = true) ->
+generateSchema = (root, top = true) ->
   schema = {}
 
   if top then schema['$schema'] = 'http://json-schema.org/draft-04/schema#'
@@ -31,7 +31,7 @@ module.exports = generateSchema = (root, dataStructures, top = true) ->
       schema.type = 'array'
       items = []
       for item in root.content or []
-        items.push generateSchema(item, dataStructures, false)
+        items.push generateSchema(item, false)
       if items.length is 1
         schema.items = items[0]
       else if items.length > 1
@@ -44,19 +44,11 @@ module.exports = generateSchema = (root, dataStructures, top = true) ->
       schema.properties = {}
       required = []
       properties = root.content.slice(0)
-      i = 0
-      while i < properties.length
-        member = properties[i]
-        i++
-        if member.element == 'ref'
-          ref = dataStructures[member.content.href]
-          i--
-          properties.splice.apply properties, [i, 1].concat(ref.content)
-          continue
-        else if member.element == 'select'
+      for member in root.content
+        if member.element == 'select'
           exclusive = []
           for option in member.content
-            optionSchema = generateSchema option, dataStructures, false
+            optionSchema = generateSchema option, false
             for key, prop of optionSchema.properties
               exclusive.push key
               schema.properties[key] = prop
@@ -65,7 +57,7 @@ module.exports = generateSchema = (root, dataStructures, top = true) ->
           continue
         key = member.content.key.content
         schema.properties[key] = if member.content.value
-          generateSchema member.content.value, dataStructures, false
+          generateSchema member.content.value, false
         else
           {type: 'string'}
         if member.meta?.description?
@@ -78,10 +70,6 @@ module.exports = generateSchema = (root, dataStructures, top = true) ->
             schema.properties[key].type = [schema.properties[key].type, 'null']
       if required.length
         schema.required = required
-    else
-      ref = dataStructures[root.element]
-      if ref
-        schema = generateSchema inherit(ref, root), dataStructures, top
 
   if root.meta?.description?
     schema.description = root.meta.description
@@ -92,3 +80,6 @@ module.exports = generateSchema = (root, dataStructures, top = true) ->
       schema.type = [schema.type, 'null']
 
   schema
+
+module.exports = (root, dataStructures) ->
+  generateSchema dereference(root, dataStructures)
