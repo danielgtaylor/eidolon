@@ -160,7 +160,7 @@ let schema = eidolon.schema(input);
 
 ### `eidolon.dereference(input, [dataStructures])`
 
-Dereference an input element or structure of elements with the given data structures. This will return the same element or structure with resolved references so you do not have to handle inheritance or object includes.
+Dereference an input element or structure of elements with the given data structures. This will return the same element or structure with resolved references so you do not have to handle inheritance or object includes. Each resolved reference will include the name of the referenced type or mixin in the [`meta.ref` property](https://github.com/refractproject/refract-spec/blob/master/refract-spec.md#properties).
 
 ```js
 import eidolon from 'eidolon';
@@ -180,8 +180,9 @@ const dataStructures = {
 
 let dereferenced = eidolon.dereference(input, dataStructures);
 
-console.log(dereferenced.element); // => 'string'
-console.log(dereferenced.content); // => 'Hello, world!'
+console.log(dereferenced.element);  // => 'string'
+console.log(dereferenced.content);  // => 'Hello, world!'
+console.log(dereferenced.meta.ref); // => 'MyString'
 ```
 
 ### `eidolon.inherit(base, element)`

@@ -26,8 +26,14 @@ module.exports = dereference = (root, dataStructures) ->
         member = properties[i]
         i++
         if member.element == 'ref'
-          ref = dataStructures[member.content.href]
           i--
+          ref = dataStructures[member.content.href]
+          # Create a deep copy of the contents and set a reference on each
+          # member, so we know where it came from.
+          ref.content = JSON.parse JSON.stringify(ref.content)
+          for property in ref.content
+            property.meta ?= {}
+            property.meta.ref = member.content.href
           # Here we need to transclude the content - we may be including any
           # number of elements from the parent, and each of these must be
           # processed to dereference it (if needed).

@@ -66,9 +66,13 @@ describe 'Dereferencing', ->
   dataStructures =
     FooType:
       element: 'number'
+      meta:
+        id: 'FooType'
       content: 5
     BarType:
       element: 'object'
+      meta:
+        id: 'BarType'
       content: [
         element: 'member'
         content:
@@ -90,9 +94,13 @@ describe 'Dereferencing', ->
             content: 'foo'
           value:
             element: 'number'
+            meta:
+              ref: 'FooType'
             content: 5
       ,
         element: 'member'
+        meta:
+          ref: 'BarType'
         content:
           key:
             element: 'string'
