@@ -28,9 +28,14 @@ module.exports = (base, element) ->
   combined = JSON.parse(JSON.stringify(base))
 
   # Next, we copy or overwrite any metadata and attributes
+  if base.meta?.id?
+    delete combined.meta.id
+    combined.meta.ref = base.meta.id
+
   if element.meta
     combined.meta ?= {}
     combined.meta[key] = value for own key, value of element.meta
+
   if element.attributes
     combined.attributes ?= {}
     combined.attributes[key] = value for own key, value of element.attributes
