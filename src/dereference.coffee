@@ -20,7 +20,7 @@ module.exports = dereference = (root, dataStructures) ->
       # as a form of inheritance. We go through each property and transclude
       # as necessary, then output object element with the modified list of
       # members.
-      properties = root.content.slice(0)
+      properties = if root.content then root.content.slice(0) else []
       i = 0
       while i < properties.length
         member = properties[i]

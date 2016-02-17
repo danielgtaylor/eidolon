@@ -1,8 +1,15 @@
 {
   "User": {
-    "element": "object",
+    "element": "Person",
     "meta": {
       "id": "User"
+    },
+    "content": []
+  },
+  "Person": {
+    "element": "object",
+    "meta": {
+      "id": "Person"
     },
     "content": [
       {

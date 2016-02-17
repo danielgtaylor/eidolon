@@ -38,32 +38,36 @@ glob.sync('./fixtures/*-refract.json').forEach (filename) ->
 
 describe 'Dereferencing', ->
   refract =
-    element: 'object'
-    content: [
-        element: 'member'
-        content:
-          key:
-            element: 'string'
-            content: 'foo'
-          value:
-            element: 'FooType'
-            content: null
-      ,
-        element: 'ref'
-        content:
-          href: 'BarType'
-      ,
-        element: 'member'
-        content:
-          key:
-            element: 'string'
-            content: 'baz'
-          value:
-            element: 'boolean'
-            content: true
-    ]
+    element: 'MyType'
 
   dataStructures =
+    MyType:
+      element: 'object'
+      meta:
+        id: 'MyType'
+      content: [
+          element: 'member'
+          content:
+            key:
+              element: 'string'
+              content: 'foo'
+            value:
+              element: 'FooType'
+              content: null
+        ,
+          element: 'ref'
+          content:
+            href: 'BarType'
+        ,
+          element: 'member'
+          content:
+            key:
+              element: 'string'
+              content: 'baz'
+            value:
+              element: 'boolean'
+              content: true
+      ]
     FooType:
       element: 'number'
       meta:
@@ -86,6 +90,8 @@ describe 'Dereferencing', ->
 
   expected =
     element: 'object'
+    meta:
+      ref: 'MyType'
     content: [
         element: 'member'
         content:
