@@ -1,3 +1,7 @@
+# 1.2.2 - 2016-02-23
+
+- Add missing `ref` data to inherited members.
+
 # 1.2.1 - 2016-02-16
 
 - Fix crash when handling objects or references to objects with no content.

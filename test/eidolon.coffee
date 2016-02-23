@@ -94,6 +94,8 @@ describe 'Dereferencing', ->
       ref: 'MyType'
     content: [
         element: 'member'
+        meta:
+          ref: 'MyType'
         content:
           key:
             element: 'string'
@@ -116,6 +118,8 @@ describe 'Dereferencing', ->
             content: 'Hello'
       ,
         element: 'member'
+        meta:
+          ref: 'MyType'
         content:
           key:
             element: 'string'
