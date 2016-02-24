@@ -32,6 +32,14 @@ module.exports = (base, element) ->
     delete combined.meta.id
     combined.meta.ref = base.meta.id
 
+    # Also, set individual member ref info, but only if it isn't already set!
+    if combined.content?.length
+      for item in combined.content
+        if item.element
+          unless item.meta and item.meta.ref
+            item.meta ?= {}
+            item.meta.ref = base.meta.id
+
   if element.meta
     combined.meta ?= {}
     combined.meta[key] = value for own key, value of element.meta
