@@ -34,6 +34,10 @@ module.exports = dereference = (root, dataStructures) ->
           for property in ref.content
             property.meta ?= {}
             property.meta.ref = member.content.href
+            property.meta.links ?= []
+            property.meta.links.push
+              relation: 'origin'
+              href: 'http://refract.link/included-member/'
           # Here we need to transclude the content - we may be including any
           # number of elements from the parent, and each of these must be
           # processed to dereference it (if needed).

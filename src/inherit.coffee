@@ -31,6 +31,10 @@ module.exports = (base, element) ->
   if base.meta?.id?
     delete combined.meta.id
     combined.meta.ref = base.meta.id
+    combined.meta.links ?= []
+    combined.meta.links.push
+      relation: 'origin'
+      href: 'http://refract.link/inherited/'
 
     # Also, set individual member ref info, but only if it isn't already set!
     if combined.content?.length
@@ -39,6 +43,10 @@ module.exports = (base, element) ->
           unless item.meta and item.meta.ref
             item.meta ?= {}
             item.meta.ref = base.meta.id
+            item.meta.links ?= []
+            item.meta.links.push
+              relation: 'origin'
+              href: 'http://refract.link/inherited-member/'
 
   if element.meta
     combined.meta ?= {}
