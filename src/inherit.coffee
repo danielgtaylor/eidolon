@@ -12,18 +12,26 @@
 # Make sure all members are unique, removing all duplicates before the last
 # occurence of the member key name.
 uniqueMembers = (content) ->
-  known = []
-  i = content.length - 1
-  while i >= 0
+  known = {}
+
+  i = 0
+  while i < content.length
     if content[i].element is 'member'
       key = content[i].content.key.content
-      if known.indexOf(key) isnt -1
+      if known[key] isnt undefined
+        # First, we swap the members so location is preserved, then
+        # remove the old member.
+        content[known[key]] = content[i]
         content.splice(i, 1)
-      known.push key
-    i--
+        continue
+      else
+        # Save the location of the *first* instance of this key
+        known[key] = i
+    i++
+  content
 
 # Have `element` inherit from `base`.
-module.exports = (base, element) ->
+inherit = (base, element) ->
   # First, we do a deep copy of the base (parent) element
   combined = JSON.parse(JSON.stringify(base))
 
@@ -75,3 +83,5 @@ module.exports = (base, element) ->
         combined.content = element.content
 
   combined
+
+module.exports = {uniqueMembers, inherit}

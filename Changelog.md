@@ -1,3 +1,8 @@
+# 1.3.0 - 2016-02-25
+
+- Add origin link relations to inherited elements, inherited members, and included members.
+- Replace duplicate inherited or included members in-place to preserve member order.
+
 # 1.2.2 - 2016-02-23
 
 - Add missing `ref` data to inherited members.

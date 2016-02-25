@@ -5,7 +5,7 @@
 # includes where the member element is a `ref`.
 # Circular references are **not** handled.
 
-inherit = require './inherit'
+{uniqueMembers, inherit} = require './inherit'
 
 module.exports = dereference = (root, dataStructures) ->
   switch root.element
@@ -49,7 +49,7 @@ module.exports = dereference = (root, dataStructures) ->
           member.content.value =
             dereference member.content.value, dataStructures
 
-      root.content = properties
+      root.content = uniqueMembers properties
       root
     else
       # Maybe it's a reference by element name?
