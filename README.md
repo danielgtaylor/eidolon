@@ -216,6 +216,15 @@ let merged = eidolon.inherit(base, element);
 // Merged now looks like:
 {
   element: 'number',
+  meta: {
+    ref: 'NullableNumber',
+    links: [
+      {
+        relation: 'origin',
+        href: 'http://refract.link/inherited/'
+      }
+    ]
+  },
   attributes: {
     default: 2,
     typeAttributes: ['nullable']

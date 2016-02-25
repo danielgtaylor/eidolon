@@ -92,10 +92,22 @@ describe 'Dereferencing', ->
     element: 'object'
     meta:
       ref: 'MyType'
+      links: [
+        {
+          relation: 'origin'
+          href: 'http://refract.link/inherited/'
+        }
+      ]
     content: [
         element: 'member'
         meta:
           ref: 'MyType'
+          links: [
+            {
+              relation: 'origin'
+              href: 'http://refract.link/inherited-member/'
+            }
+          ]
         content:
           key:
             element: 'string'
@@ -104,11 +116,23 @@ describe 'Dereferencing', ->
             element: 'number'
             meta:
               ref: 'FooType'
+              links: [
+                {
+                  relation: 'origin'
+                  href: 'http://refract.link/inherited/'
+                }
+              ]
             content: 5
       ,
         element: 'member'
         meta:
           ref: 'BarType'
+          links: [
+            {
+              relation: 'origin'
+              href: 'http://refract.link/included-member/'
+            }
+          ]
         content:
           key:
             element: 'string'
@@ -120,6 +144,12 @@ describe 'Dereferencing', ->
         element: 'member'
         meta:
           ref: 'MyType'
+          links: [
+            {
+              relation: 'origin'
+              href: 'http://refract.link/inherited-member/'
+            }
+          ]
         content:
           key:
             element: 'string'
