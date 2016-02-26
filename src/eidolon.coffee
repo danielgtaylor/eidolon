@@ -1,7 +1,7 @@
 dereference = require './dereference'
 generateExample = require './example'
 generateSchema = require './schema'
-inherit = require './inherit'
+{inherit} = require './inherit'
 
 # This class is initialized with and saves the data structures that can be
 # referenced and used when generating examples and schemas. It is an alternative
