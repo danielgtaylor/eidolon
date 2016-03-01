@@ -13,6 +13,10 @@
                 "key": {
                   "element": "string",
                   "content": "state"
+                },
+                "value": {
+                  "element": "string",
+                  "content": "WA"
                 }
               }
             }
@@ -27,6 +31,10 @@
                 "key": {
                   "element": "string",
                   "content": "province"
+                },
+                "value": {
+                  "element": "string",
+                  "content": "BC"
                 }
               }
             }
