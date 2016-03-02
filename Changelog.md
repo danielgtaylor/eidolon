@@ -1,3 +1,7 @@
+# 1.4.0 - 2016-03-02
+
+- Generate smart random data when elements have no sample or default value set. This can now be overridden with your own `defaultValue` function.
+
 # 1.3.0 - 2016-02-25
 
 - Add origin link relations to inherited elements, inherited members, and included members.
