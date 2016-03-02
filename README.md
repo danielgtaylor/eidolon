@@ -58,11 +58,11 @@ const dataStructures = {};
 let example, schema;
 
 // Method 1: module methods
-example = eidolon.example(input, dataStructures);
+example = eidolon.example(input, dataStructures, options);
 schema = eidolon.schema(input, dataStructures);
 
 // Method 2: class instance
-const instance = new Eidolon(dataStructures);
+const instance = new Eidolon(dataStructures, options);
 example = instance.example(input);
 schema = instance.schema(input);
 ```
@@ -121,9 +121,16 @@ The following list of features in no particular order are known to be missing or
 
 ## Reference
 
-### `eidolon.Eidolon([dataStructures])`
+### `eidolon.Eidolon([dataStructures], [options])`
 
 This class is used to save state between calls to `example` and `schema`. It is used just like the functions below, except that you pass your data structures to the constructor instead of to each method.
+
+Available options:
+
+Option Name  | Description | Default
+------------ | ----------- | -------
+`defaultValue` | Function to generate a default value `function (refractElement, path)` | Built-in [`eidolon.defaultValue`](https://github.com/danielgtaylor/eidolon/blob/master/src/default-value.coffee).
+`seed` | Seed for the random generator used to create default values | -
 
 ```js
 import {Eidolon} from 'eidolon';
@@ -136,9 +143,11 @@ let schema = instance.schema(input);
 let dereferenced = instance.dereference(input);
 ```
 
-### `eidolon.example(input, [dataStructures])`
+### `eidolon.example(input, [dataStructures], [options])`
 
 Generate a new example from the given input refract object and an optional mapping of data structures, where the key is the data structure name and the value is the data structure definition.
+
+Available options are described in the Eidolon class above.
 
 ```js
 import eidolon from 'eidolon';
