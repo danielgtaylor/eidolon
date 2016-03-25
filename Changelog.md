@@ -1,3 +1,7 @@
+# 1.5.0 - 2016-03-25
+
+- Handle circular references when dereferencing, by stopping processing and adding in a circular reference origin link relation.
+
 # 1.4.0 - 2016-03-02
 
 - Generate smart random data when elements have no sample or default value set. This can now be overridden with your own `defaultValue` function.

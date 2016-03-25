@@ -1,0 +1,69 @@
+{
+  "Person": {
+    "element": "object",
+    "meta": {
+      "id": "Person"
+    },
+    "content": [
+      {
+        "element": "member",
+        "content": {
+          "key": {
+            "element": "string",
+            "content": "assets"
+          },
+          "value": {
+            "element": "array",
+            "content": [
+              {
+                "element": "Asset"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "Asset": {
+    "element": "object",
+    "meta": {
+      "id": "Asset"
+    },
+    "content": [
+      {
+        "element": "member",
+        "content": {
+          "key": {
+            "element": "string",
+            "content": "address"
+          },
+          "value": {
+            "element": "Address",
+            "content": []
+          }
+        }
+      }
+    ]
+  },
+  "Address": {
+    "element": "object",
+    "meta": {
+      "id": "Address"
+    },
+    "content": [
+      {
+        "element": "member",
+        "content": {
+          "key": {
+            "element": "string",
+            "content": "owner"
+          },
+          "value": {
+            "element": "Person",
+            "content": []
+          }
+        }
+      }
+    ]
+  }
+}

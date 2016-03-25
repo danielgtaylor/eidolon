@@ -47,6 +47,12 @@ generateExample = (root, context) ->
         context.path.pop()
         if root.meta?.id then context.path.pop()
       obj
+    else
+      # This could return either `null` or `undefined`... not sure which
+      # is best. Null means it will be serialized to JSON to show e.g.
+      # the key name. For example: {'keyName': null} vs. {}. The downside
+      # is that `null` may not actually be allowed.
+      null
 
 module.exports = (root, dataStructures, options) ->
   options ?= {}
