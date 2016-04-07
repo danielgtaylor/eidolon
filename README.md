@@ -96,6 +96,7 @@ The following features are supported by the example and JSON Schema generators. 
 * Mixins (Includes)
 * Arrays with members of different types
 * One Of properties (the first is always selected)
+* Circular references generated as `null`
 
 ### JSON Schema Generator
 
@@ -106,18 +107,62 @@ The following features are supported by the example and JSON Schema generators. 
 * Mixins (Includes)
 * Arrays with members of different types
 * One Of (mutually exclusive) properties
+* Circular references generated as an empty schema
 
 ### Notable Missing Features
 
 The following list of features in no particular order are known to be missing or cause issues. Please feel free to open a pull request with new features and fixes based on this list! *wink wink nudge nudge* :beers:
 
-* Circular references
+* Better support for circular references
 * Variable values
 * Variable property names
 * Variable type names
 * Extend element support
 * Remote referenced elements (e.g. via HTTP)
 * Namespace prefixes
+
+## Link Relations
+
+Elements may be given [link relations](https://github.com/refractproject/refract-spec/blob/master/refract-spec.md#link-element-element) when dereferencing or processing inheritance that help to describe the origin of a particular element, such as wheterh it was included vs. inherited or whether the element constitutes a circular reference to a previous element in the hierarchy.
+
+### Inheritance
+
+Inheritance link relations come in two forms. The first, called `inherited` is for the element which inherits from another element. The second, called `inherited-member` is for elements of type `member` within an `object` that have been inherited from a parent `object`. MSON example:
+
+```mson
+# MyObject (MyBase):
++ id (number)
+```
+
+### Inclusion
+
+Inclusion link relations are for elements of type `member` within an `object` that have been included from a parent `object`. MSON example:
+
+```mson
+# MyObject
++ Include MyBase
+```
+
+### Circular References
+
+Circular reference link relations are for elements whose ancestral chain contains itself, causing a loop. Processing will stop and this link relation will be added so you can detect this case. MSON example:
+
+```mson
+# Person
++ address (Address)
+
+# Address
++ owner (Person)
+```
+
+### Origins and Link Definitions
+
+Description        | Relation | Href
+------------------ | -------- | ----
+Inherited          | `origin` | http://refract.link/inherited/
+Inherited member   | `origin` | http://refract.link/inherited-member/
+Included member    | `origin` | http://refract.link/included-member/
+Circular reference | `origin` | http://refract.link/circular-reference/
 
 ## Reference
 
@@ -167,9 +212,9 @@ const input = {element: 'string', content: 'hello'};
 let schema = eidolon.schema(input);
 ```
 
-### `eidolon.dereference(input, [dataStructures])`
+### `eidolon.dereference(input, [dataStructures], [known])`
 
-Dereference an input element or structure of elements with the given data structures. This will return the same element or structure with resolved references so you do not have to handle inheritance or object includes. Each resolved reference will include the name of the referenced type or mixin in the [`meta.ref` property](https://github.com/refractproject/refract-spec/blob/master/refract-spec.md#properties).
+Dereference an input element or structure of elements with the given data structures. This will return the same element or structure with resolved references so you do not have to handle inheritance or object includes. Each resolved reference will include the name of the referenced type or mixin in the [`meta.ref` property](https://github.com/refractproject/refract-spec/blob/master/refract-spec.md#properties). If given, `known` is an array of element names from ancestors of this element, used to detect circular references.
 
 ```js
 import eidolon from 'eidolon';

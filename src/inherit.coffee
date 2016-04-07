@@ -9,6 +9,8 @@
 # # Another Type (My Type)
 # + id (string)
 
+{createLink} = require './util'
+
 # Make sure all members are unique, removing all duplicates before the last
 # occurence of the member key name.
 uniqueMembers = (content) ->
@@ -39,8 +41,7 @@ inherit = (base, element) ->
   if base.meta?.id?
     delete combined.meta.id
     combined.meta.ref = base.meta.id
-    combined.meta.links ?= []
-    combined.meta.links.push
+    createLink combined,
       relation: 'origin'
       href: 'http://refract.link/inherited/'
 
@@ -49,12 +50,10 @@ inherit = (base, element) ->
       for item in combined.content
         if item.element
           unless item.meta and item.meta.ref
-            item.meta ?= {}
-            item.meta.ref = base.meta.id
-            item.meta.links ?= []
-            item.meta.links.push
+            createLink item,
               relation: 'origin'
               href: 'http://refract.link/inherited-member/'
+            item.meta.ref = base.meta.id
 
   if element.meta
     combined.meta ?= {}
