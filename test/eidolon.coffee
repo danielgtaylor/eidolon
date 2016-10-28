@@ -1,6 +1,6 @@
 eidolon = require '../src/eidolon'
 {expect} = require 'chai'
-faker = require 'faker'
+faker = require 'faker/locale/en'
 fs = require 'fs'
 glob = require 'glob'
 path = require 'path'
