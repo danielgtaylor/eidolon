@@ -1,7 +1,7 @@
 # Generate default values based on an element type and its path in the
 # element tree. This method tries to be smart about generating a sample data
 # structure that makes sense when no samples or defaults were given.
-faker = require 'faker'
+faker = require 'faker/locale/en'
 
 endsWith = (input, search) ->
   if not input then return false

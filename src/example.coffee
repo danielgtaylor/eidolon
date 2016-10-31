@@ -11,7 +11,7 @@
 # It is missing support for many advanced features.
 dereference = require './dereference'
 defaultValue = require './default-value'
-faker = require 'faker'
+faker = require 'faker/locale/en'
 
 generateExample = (root, context) ->
   switch root.element
