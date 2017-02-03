@@ -226,6 +226,29 @@ describe 'Dereferencing', ->
   it 'Dereferences element name', ->
     expect(dereferenced).to.deep.equal(expected)
 
+describe 'Dereferencing an empty ‘Include’', ->
+  refract = {
+    element: 'object',
+    meta: {
+      id: 'TreeItem3'
+    },
+    content: [
+      {
+        element: 'ref',
+        content: {
+          href: '',
+          path: 'content',
+        }
+      }
+    ]
+  }
+
+  eidolon = new Eidolon([])
+  dereferenced = eidolon.dereference(refract)
+
+  it 'Dereferences element name', ->
+    expect(dereferenced).to.deep.equal(refract)
+
 describe 'Defaults', ->
   beforeEach ->
     faker.seed(1)

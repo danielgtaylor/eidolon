@@ -38,6 +38,10 @@ module.exports = dereference = (root, dataStructures, known=[]) ->
         if member.element == 'ref'
           i--
           ref = dataStructures[member.content.href]
+
+          unless ref
+            return root
+
           # Create a deep copy of the contents and set a reference on each
           # member, so we know where it came from.
           ref.content = JSON.parse JSON.stringify(ref.content)
@@ -51,6 +55,7 @@ module.exports = dereference = (root, dataStructures, known=[]) ->
           # processed to dereference it (if needed).
           properties.splice.apply properties, [i, 1].concat(ref.content)
           continue
+
         if member.content.key
           member.content.key =
             dereference member.content.key, dataStructures, newKnown
