@@ -1,3 +1,11 @@
+# 1.5.2
+
+- Make sure `eidolon` does not crash when an empty `Include` is provided in the tree 
+
+# 1.5.1
+
+- Use only one `faker` locale when building the library
+
 # 1.5.0 - 2016-03-25
 
 - Handle circular references when dereferencing, by stopping processing and adding in a circular reference origin link relation.
