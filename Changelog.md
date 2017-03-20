@@ -1,3 +1,7 @@
+# 1.5.3
+
+- Allow meta.id to be an object for the datastructure.
+
 # 1.5.2
 
 - Make sure `eidolon` does not crash when an empty `Include` is provided in the tree 
