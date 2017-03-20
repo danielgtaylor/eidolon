@@ -10,13 +10,19 @@
 
 module.exports = dereference = (root, dataStructures, known=[]) ->
   newKnown = known
-  if known.indexOf(root.element) isnt -1 or known.indexOf(root.meta?.id) isnt -1
+
+  id = root.meta?.id
+
+  if typeof id is 'object'
+    id = id.content
+
+  if known.indexOf(root.element) isnt -1 or known.indexOf(id) isnt -1
     createLink root,
       relation: 'origin'
       href: 'http://refract.link/circular-reference/'
     return root
-  else if root.meta?.id?
-    newKnown = known.concat(root.meta.id)
+  else if id?
+    newKnown = known.concat(id)
 
   switch root.element
     when 'enum', 'array'

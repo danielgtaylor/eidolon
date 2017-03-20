@@ -1,4 +1,5 @@
 eidolon = require '../src/eidolon'
+dereference = require '../src/dereference'
 {expect} = require 'chai'
 faker = require 'faker/locale/en'
 fs = require 'fs'
@@ -248,6 +249,43 @@ describe 'Dereferencing an empty ‘Include’', ->
 
   it 'Dereferences element name', ->
     expect(dereferenced).to.deep.equal(refract)
+
+describe 'Dereferencing a data structure with sourcemaps', ->
+  refract = {
+    element: 'array',
+    meta: {
+      id: {
+        element: 'string',
+        content: 'A'
+      }
+    },
+    content: [
+      {
+        element: 'A'
+      }
+    ]
+  }
+
+  it 'Dereferences element name', ->
+    dereferenced = dereference(refract, {})
+    expect(dereferenced.content).to.have.lengthOf(1)
+    expect(dereferenced.content[0].meta.links).to.have.lengthOf(1)
+
+describe 'Dereferencing a data structure with sourcemaps when it is known', ->
+  refract = {
+    element: 'object',
+    meta: {
+      id: {
+        element: 'string',
+        content: 'A'
+      }
+    },
+    content: []
+  }
+
+  it 'should contain links', ->
+    dereferenced = dereference(refract, {}, ['A'])
+    expect(dereferenced.meta.links).to.have.lengthOf(1)
 
 describe 'Defaults', ->
   beforeEach ->
