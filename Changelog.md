@@ -1,3 +1,7 @@
+# 1.5.4
+
+- Adds a LICENSE file to the project.
+
 # 1.5.3
 
 - Allow meta.id to be an object for the datastructure.
