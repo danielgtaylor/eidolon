@@ -1,6 +1,6 @@
 {
   "name": "eidolon",
-  "version": "1.5.4",
+  "version": "1.6.0",
   "description": "Generate JSON or JSON Schema from Refract & MSON data structures",
   "main": "lib/eidolon.js",
   "scripts": {
