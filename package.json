@@ -33,6 +33,6 @@
     "sinon": "^1.17.3"
   },
   "dependencies": {
-    "faker": "github:marak/faker.js#9bb2b7c"
+    "faker": "^3.1.0"
   }
 }
